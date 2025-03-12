@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Denise ❤️</title>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 10;
+        }
+
+    
+
+        .input-container {
+            margin-top: 20px;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background: green;
+            color: white;
+        }
+
+        .zipper-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .zipper {
+            width: 50px;
+            height: 100px;
+            background: gray;
+            margin: 20px auto;
+            cursor: pointer;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .zipper:before {
+            content: '\26F3';
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hidden-content {
+            display: none;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: none;
+            width: 400px;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .accept-btn {
+            background: green;
+            color: white;
+        }
+
+        .no-btn {
+            background: red;
+            color: white;
+            position: absolute;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-10px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="initialBox">
+        <p>Aperte para confirmar que é a Denise Demba</p>
+        <button onclick="showInputPage()">Confirmar</button>
+    </div>
+
+    <div class="container hidden-content" id="inputBox">
+        <p>Preencha os campos:</p>
+        <div class="input-container">
+            <input type="text" id="favoriteHuman" placeholder="Nome do seu humano preferido">
+            <input type="text" id="nickname" placeholder="Como ele te chama">
+        </div>
+        <button onclick="checkInputs()">Confirmar</button>
+    </div>
+
+    <div class="zipper-container" id="zipperBox" style="display: none;">
+        <p>Puxe o zíper para abrir sua surpresa! 🎁</p>
+        <div class="zipper" id="zipper"></div>
+    </div>
+
+
+    
+
+    <div class="hidden-content" id="content">
+        <div class="popup" id="popupMessage">
+            <h2>Para Minha Humana Preferida ❤️</h2>
+            <p>Denise, você é a estrela mais brilhante do meu universo incluindo os paralelos. Seu sorriso ilumina os dias, sua voz é a melodia mais doce e seu coração é o lar mais fixe. 💖</p>
+            <p>Conhecer você  é um presente que agradeço da hora. Que possamos  compartilhar momentos incríveis e construir memórias inesquecíveis juntos.</p>
+            <p>Você aceita este pequeno gesto de carinho?</p>
+            <button class="accept-btn" onclick="showQuestionPopup()">Aceitar</button>
+        </div>
+
+        <div class="popup" id="popupQuestion">
+            <p>Você me aceita como seu humano preferido para sempre? 💖</p>
+            <button class="accept-btn" onclick="showLoveEffect()">Sim</button>
+            <button class="no-btn" id="noButton">Não</button>
+        </div>
+
+        <div class="popup" id="popupLove">
+            <h2>Obrigado, minha humana eterna! ❤️</h2>
+            <iframe width="100%" height="215" src="https://www.youtube.com/watch?v=dcCz2i36SjM" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="hearts-container" id="heartsContainer"></div>
+    </div>
+
+    <script>
+        document.getElementById("zipper").addEventListener("click", function() {
+            document.getElementById("zipperBox").style.display = "none";
+            document.getElementById("content").style.display = "block";
+            document.getElementById("popupMessage").style.display = "block";
+        });
+
+        function showInputPage() {
+            document.getElementById("initialBox").style.display = "none";
+            document.getElementById("inputBox").style.display = "block";
+        }
+
+        function checkInputs() {
+        let favoriteHuman = document.getElementById("favoriteHuman").value.trim().toLowerCase();
+        let nickname = document.getElementById("nickname").value.trim().toLowerCase();
+
+        if (favoriteHuman === "marcio" && (nickname === "minha humana preferida" || nickname === "comandante")) {
+            document.getElementById("inputBox").style.display = "none";
+            document.getElementById("zipperBox").style.display = "block"; // Exibe o zipperBox
+        } else {
+            alert("Algo está errado! Tente novamente.");
+        }
+    }
+
+
+        function showQuestionPopup() {
+            document.getElementById("popupMessage").style.display = "none";
+            document.getElementById("popupQuestion").style.display = "block";
+        }
+
+        function showLoveEffect() {
+            document.getElementById("popupQuestion").style.display = "none";
+            document.getElementById("popupLove").style.display = "block";
+            let heartsContainer = document.getElementById("heartsContainer");
+            heartsContainer.style.display = "block";
+
+            for (let i = 0; i < 50; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        let noButton = document.getElementById("noButton");
+        noButton.addEventListener("mouseover", moveButton);
+        noButton.addEventListener("touchstart", moveButton);
+
+        function moveButton() {
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            noButton.style.left = x + "px";
+            noButton.style.top = y + "px";
+        }
+    </script>
+</body>
+</html>
